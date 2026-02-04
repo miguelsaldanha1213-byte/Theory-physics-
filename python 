@@ -1,0 +1,17 @@
+import os
+from openai import OpenAI
+
+# Configure sua chave de API como variável de ambiente (pra funcionar)
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+def gerar_teoria(tema):
+    response = client.chat.completions.create(
+        model="gpt-4o-mini", # Modelo eficiente
+        messages=[
+            {"role": "system", "content": "Você é um gerador de teorias criativas e absurdas."},
+            {"role": "user", "content": f"Crie uma teoria sobre: {tema}"}
+        ]
+    )
+    return response.choices[0].message.content
+
+print(gerar_teoria("por que as meias somem na máquina de lavar"))
